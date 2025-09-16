@@ -8,37 +8,45 @@ import java.awt.event.ActionListener;
 public class TelaJAVA extends JFrame { 
     private JButton mensagem;
     private JButton fechar;
-   
+
     public TelaJAVA(){  
         super("Teste do Componente OptionPane");   
+
+        // === BOTÕES ===
         mensagem = new JButton("Mensagem");     
         fechar = new JButton("Fechar");       
-       
-        Container pane = this.getContentPane(); 
-       
-        pane.add(mensagem);   
-        pane.add(fechar);
-       
-        pane.setLayout(null);  
-       
-        mensagem.setBounds(20,30,150,35);   
-        fechar.setBounds(20,90,150,35);
-       
-        /**Eventos**/
+
+        // === CONTAINER PRINCIPAL ===
+        JPanel painelPrincipal = new JPanel(new BorderLayout(10,10));
+        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // === PAINEL DE BOTÕES ===
+        JPanel painelBotoes = new JPanel(new GridLayout(2, 1, 10, 10));
+        painelBotoes.add(mensagem);
+        painelBotoes.add(fechar);
+
+        painelPrincipal.add(painelBotoes, BorderLayout.CENTER);
+
+        // === ADICIONA AO FRAME ===
+        this.setContentPane(painelPrincipal);
+
+        // === EVENTOS ===
         mensagem.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent b){
                 buttonMensagemActionPerformed(b);
             }                  
         });
-       
-        fechar.addActionListener (new ActionListener(){
+
+        fechar.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent b){
                 buttonConfirmActionPerformed(b);
             }
         });
-       
-        this.setSize(400,310);
-        this.setContentPane(pane);
+
+        // === CONFIGURAÇÕES DO FRAME ===
+        this.setSize(400, 250);
+        this.setLocationRelativeTo(null); // centraliza na tela
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
    
@@ -56,12 +64,12 @@ public class TelaJAVA extends JFrame {
     private void buttonConfirmActionPerformed(ActionEvent b){
         int retorno = JOptionPane.showConfirmDialog(this,"Deseja Fechar?","Fechar",JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
        
-        if (retorno == JOptionPane.OK_OPTION){ // Corrigi aqui para só fechar no OK
+        if (retorno == JOptionPane.OK_OPTION){ 
             System.exit(0);
         }
     }
            
     public static void main(String[] args) {
-        TelaJAVA p = new TelaJAVA();  
+        SwingUtilities.invokeLater(() -> new TelaJAVA());  
     }            
 }
