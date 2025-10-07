@@ -17,10 +17,22 @@ public abstract class Pets extends Animal {
     public void caminha() {
         System.out.println(nome + " da raca " + raca + " esta caminhando com " + pernas + " pernas.");
     }
-    
+
 
     public void emiteSom() {
         System.out.println(nome + "Miau!");
     }
 
+    // GETTERS
+    public String getNome() {
+        return nome;
+    }
+
+    public String getRaca() {
+        return raca;
+    }
+
+    public String getTamanho() {
+        return tamanho;
+    }
 }
